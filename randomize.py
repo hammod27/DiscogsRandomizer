@@ -9,37 +9,26 @@ def main():
 	try:
 		newAlbums = input('New or All records? Type \'New\' or \'All\'\n')
 		
+		howMany = int(input('how many users?\n'))
+		while (count < howMany):
+			tempVar = input('username?\n')
+			userList.append(tempVar)
+			count += 1
+
 		if newAlbums == 'New' or newAlbums == 'new':
-			howMany = int(input('how many users?\n'))
-			while (count < howMany):
-				tempVar = input('username?\n')
-				userList.append(tempVar)
-				count += 1
 			numAlbums = int(input('Top how many albums?\n'))
 			for user in userList:
-				albumAndArtistList.append(getRecentAlbums(user, albumAndArtistList, numAlbums))
-
-			listSize = len(albumAndArtistList)
-			randNum = randint(0,listSize)
-		
-			print(albumAndArtistList[randNum])
+			 	albumAndArtistList.append(getRecentAlbums(user, albumAndArtistList, numAlbums))
 		elif newAlbums == 'All' or newAlbums == 'all':
-			howMany = int(input('how many users?\n'))
-			while (count < howMany):
-				tempVar = input('username?\n')
-				userList.append(tempVar)
-				count += 1
 			for user in userList:
-				albumAndArtistList.append(getAlbumsFromApi(user, albumAndArtistList))
-
-			listSize = len(albumAndArtistList)
-			randNum = randint(0,listSize)
-		
-			print(albumAndArtistList[randNum])
+			 	albumAndArtistList.append(getAlbumsFromApi(user, albumAndArtistList))
 		else:
 			raise ValueError('\'New\' or \'All\' wasn\'t typed in correctly')
+
+		listSize = len(albumAndArtistList)
+		randNum = randint(0,listSize)
 		
-		
+		print(albumAndArtistList[randNum])
 	except Exception as e:
 		print('an error occurred :(\n')
 		print( str(e))
