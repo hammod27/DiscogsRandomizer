@@ -73,23 +73,13 @@ def getRecentAlbums(user, albumAndArtistList, numAlbums):
 	albumAndArtistList = buildRecentAlbumList(jsonText, albumAndArtistList, numAlbums)
 	return albumAndArtistList
 
-def buildAlbumListFaster(jsonText, albumAndArtistList):
-	for i in jsonText['releases']:
-		albumName = i['basic_information']['title']
-		for j in i['basic_information']['artists']:
-			artistName = j['name']
-		albumAndArtist = albumName + " - " + artistName
-		albumAndArtistList.append(albumAndArtist)
+def getAlbumsFromApiQuicker(user, albumAndArtistList):
+	url = 'http://api.discogs.com/users/{0}/collection/folders/0/releases?page=1&per_page=1000'.format(user)
+	print("HERE")
+	response = requests.get(url)
+	response.encoding = 'UTF-8'
+	jsonText = json.loads(response.text)
+	albumAndArtistList = buildAlbumList(jsonText, albumAndArtistList)
 	return albumAndArtistList
-	
+
 main()
-
-
-
-
-
-
-
-
-
-
